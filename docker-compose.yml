@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  kayra-auth:
+    build: .
+    container_name: kayra-auth
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - AUTH_URL=http://localhost:3000
+      - AUTH_SECRET=your-32-character-secret-key-here
+      - GOOGLE_CLIENT_ID=your-google-client-id
+      - GOOGLE_CLIENT_SECRET=your-google-client-secret
+      - GITHUB_ID=your-github-client-id
+      - GITHUB_SECRET=your-github-client-secret
+      - AUTH0_SECRET=your-auth0-secret
+      - AUTH0_BASE_URL=http://localhost:3000
+      - AUTH0_ISSUER_BASE_URL=https://your-auth0-domain.auth0.com
+      - AUTH0_CLIENT_ID=your-auth0-client-id
+      - AUTH0_CLIENT_SECRET=your-auth0-client-secret
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 30s
+      timeout: 10s
+      retries: 3
