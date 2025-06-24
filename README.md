@@ -128,7 +128,7 @@ npm run lint
 
 ## 📄 Dokumentasyon
 
-Detaylı teknik rapor için `TEKNIK_RAPOR.md` dosyasını inceleyiniz.
+Detaylı teknik rapor için `TEKNIK_RAPOR.md` ve `TEST_RAPOR.md` dosyalarını inceleyiniz.
 
 ## 🤝 Katkıda Bulunma
 
