@@ -2,7 +2,7 @@
 
 import { Menu } from 'lucide-react'
 
-// Extend Window interface
+// Window interface'i genişletme
 declare global {
   interface Window {
     toggleMobileSidebar?: () => void

@@ -47,14 +47,14 @@ export default function Sidebar({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Close sidebar when clicking on mobile menu item
+  // Mobilde menü öğesine tıklandığında sidebar'ı kapat
   const handleMenuClick = () => {
     if (isMobile) {
       setSidebarOpen(false)
     }
   }
 
-  // Expose setSidebarOpen function globally for mobile header
+  // Mobil header için setSidebarOpen fonksiyonunu global olarak kullan
   useEffect(() => {
     if (typeof window !== 'undefined') {
       ;(window as Window & typeof globalThis).toggleMobileSidebar = () =>

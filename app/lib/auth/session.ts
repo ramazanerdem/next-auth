@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 import { redirect } from 'next/navigation'
 
 /**
- * Enhanced session validation with comprehensive checks
+ * Kapsamlı kontrol ile session doğrulama
  */
 export async function validateSession() {
   try {
@@ -18,7 +18,7 @@ export async function validateSession() {
       }
     }
 
-    // Check session expiry
+    // Session süresini kontrol et
     const now = new Date()
     const expiresAt = new Date(session.expires)
 
@@ -30,7 +30,7 @@ export async function validateSession() {
       }
     }
 
-    // Check if session expires soon (within 5 minutes)
+    // Session süresi 5 dakika içinde doluyorsa yenileme gerekiyor
     const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60 * 1000)
     const shouldRefresh = expiresAt <= fiveMinutesFromNow
 
@@ -53,7 +53,7 @@ export async function validateSession() {
 }
 
 /**
- * Server-side session guard for protected routes
+ * Server-side session koruması için gerekli
  */
 export async function requireValidSession() {
   const sessionCheck = await validateSession()
@@ -65,7 +65,7 @@ export async function requireValidSession() {
 }
 
 /**
- * Role-based access control guard
+ * Rol tabanlı erişim kontrolü
  */
 export async function requireRole(requiredRole: string) {
   const sessionCheck = await requireValidSession()
@@ -78,21 +78,21 @@ export async function requireRole(requiredRole: string) {
 }
 
 /**
- * Admin role guard
+ * Admin rolü için gerekli
  */
 export async function requireAdmin() {
   return await requireRole('admin')
 }
 
 /**
- * Secure logout with cleanup
+ * Güvenli çıkış için temizlik
  */
 export async function secureSignOut(redirectUrl: string = '/') {
   try {
-    // Clear any additional cookies or local storage
+    // Ekstra cookie veya local storage temizleme
     const cookieStore = await cookies()
 
-    // Remove any custom session cookies
+    // Özel session cookie'leri kaldır
     const sessionCookies = [
       'next-auth.session-token',
       'next-auth.csrf-token',
@@ -104,7 +104,7 @@ export async function secureSignOut(redirectUrl: string = '/') {
       cookieStore.delete(cookieName)
     })
 
-    // Call Auth.js signOut
+    // Auth.js signOut çağrısı
     await signOut({
       redirect: true,
       redirectTo: redirectUrl,
@@ -116,7 +116,7 @@ export async function secureSignOut(redirectUrl: string = '/') {
 }
 
 /**
- * Session monitoring for real-time validation
+ * Gerçek zamanlı doğrulama için session izleme
  */
 export class SessionMonitor {
   private checkInterval: NodeJS.Timeout | null = null
@@ -132,7 +132,7 @@ export class SessionMonitor {
   }
 
   start(intervalMs: number = 60000) {
-    // Check every minute
+    // Her dakika bir kere kontrol et
     if (this.checkInterval) {
       this.stop()
     }
@@ -192,7 +192,7 @@ export async function validateApiSession() {
 }
 
 /**
- * Check if user has specific permissions
+ * Kullanıcının belirli izinleri olup olmadığını kontrol et
  */
 export async function hasPermission(
   permission: string,
@@ -206,7 +206,7 @@ export async function hasPermission(
 
   const { user } = sessionCheck
 
-  // Basic role-based permissions
+  // Temel rol tabanlı izinler
   switch (permission) {
     case 'admin:read':
     case 'admin:write':
@@ -218,7 +218,7 @@ export async function hasPermission(
       return user?.role === 'admin' || user?.role === 'user'
 
     case 'profile:edit':
-      // Users can edit their own profile, admins can edit any
+      // Kullanıcılar kendi profillerini düzenleyebilir, yöneticiler ise herhangi bir profili düzenleyebilir
       return user?.role === 'admin' || user?.id === resourceId
 
     default:
@@ -227,7 +227,7 @@ export async function hasPermission(
 }
 
 /**
- * Get session metadata for analytics/monitoring
+ * Session meta verilerini almak için
  */
 export async function getSessionMetadata() {
   const sessionCheck = await validateSession()
@@ -246,7 +246,7 @@ export async function getSessionMetadata() {
 }
 
 /**
- * Session utilities for client components
+ * Client component için session yardımcı fonksiyonlar
  */
 export const sessionUtils = {
   validateSession,

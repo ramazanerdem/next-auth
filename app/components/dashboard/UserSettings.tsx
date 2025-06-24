@@ -65,7 +65,7 @@ export default function UserSettings({ session }: UserSettingsProps) {
       {/* Content - Scrollable */}
       <main className="flex-1 overflow-hidden">
         <div className="h-full flex flex-col lg:flex-row">
-          {/* Sidebar Tabs - Mobile: Horizontal scroll, Desktop: Vertical */}
+          {/* Sidebar Tabs - Mobilde: Yatay kaydırma, Masaüstünde: Dikey */}
           <div className="lg:w-64 lg:flex-shrink-0 bg-gray-50 border-b lg:border-b-0 lg:border-r border-gray-200">
             <nav className="overflow-x-auto lg:overflow-x-visible p-4 lg:p-6">
               <div className="flex lg:flex-col space-x-4 lg:space-x-0 lg:space-y-2 min-w-max lg:min-w-0">

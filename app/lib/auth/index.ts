@@ -1,6 +1,3 @@
-// Auth utility fonksiyonları buraya yazılacak
-// Sonraki aşamada geliştirilecek
-
 // Auth.js v5 helper fonksiyonları
 export {
   getSession,
