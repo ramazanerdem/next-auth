@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from './lib/auth/config'
-import AuthSessionProvider from './components/auth/SessionProvider'
 import './globals.css'
-// import { getSession } from 'next-auth/react'
+import AuthSessionProvider from './components/auth/SessionProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -18,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Kayra Auth Sistemi',
-  description: 'Next.js 15 + NextAuth.js v4 + Auth0 + JWT + TailwindCSS v4',
+  description: 'Next.js 15 + Auth.js v5 + OAuth + JWT',
 }
 
 export default async function RootLayout({
@@ -26,15 +23,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const session = await getServerSession(authOptions)
-  // const session = await getSession()
-
   return (
     <html lang="tr">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <AuthSessionProvider session={session}>{children}</AuthSessionProvider>
+        <AuthSessionProvider>{children}</AuthSessionProvider>
       </body>
     </html>
   )
